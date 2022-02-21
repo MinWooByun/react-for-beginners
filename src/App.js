@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const App = () => {
   const [loading, setLoding] = useState(true);
   const [coins, setCoins] = useState([]);
+  const [coinInverter, setCoinInverter] = useState(0);
   useEffect(() => {
     fetch("https://api.coinpaprika.com/v1/tickers").then((respones) =>
       respones.json().then((json) => {
@@ -11,6 +12,17 @@ const App = () => {
       })
     );
   }, []);
+  const onChange = (event) => {
+    setCoinInverter(event.target.value);
+  };
+  const onClick = () => {
+    console.log(
+      coins.map(
+        (coin) =>
+          `${coin.name} : ${Math.round(coinInverter / coin.quotes.USD.price)}`
+      )
+    );
+  };
   return (
     <div>
       <h1>The Coins!({loading ? "" : `${coins.length}`})</h1>
@@ -28,6 +40,13 @@ const App = () => {
           })}
         </select>
       )}
+      <h1>USD coins inverter</h1>
+      <input
+        onChange={onChange}
+        placeholder="Please write the number of coins..."
+        type="number"
+      />
+      <button onClick={onClick}>Inverter!!!</button>
     </div>
   );
 };
