@@ -59,8 +59,8 @@ const App = () => {
   const onSubmitInverter = (event) => {
     event.preventDefault();
     console.log(
-      `Coin name : ${coins[num].name}\nCoin ${Math.round(
-        coinInverter / Math.floor(coins[num].quotes.USD.price)
+      `Coin name : ${coins[num].name}\nCoin ${Math.floor(
+        coinInverter / parseInt(coins[num].quotes.USD.price)
       )} available for purchase`
     );
     num = 0;
