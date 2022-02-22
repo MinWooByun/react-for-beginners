@@ -1,119 +1,27 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Detail from "./routes/Detail";
+import Home from "./routes/Home";
 
-let num = 0;
-
-const App = () => {
-  const [loading, setLoding] = useState(true);
-  const [coins, setCoins] = useState([]);
-  const [serch, setSearch] = useState("");
-  const [coinInverter, setCoinInverter] = useState("");
-  const [inverter, setInverter] = useState(true);
-  useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers").then((respones) =>
-      respones.json().then((json) => {
-        setCoins(json);
-        setLoding(false);
-      })
-    );
-  }, []);
-
-  const onClickList = () => {
-    coins.map((coin) =>
-      console.log(`${coin.name}(${coin.symbol}) : $${coin.quotes.USD.price}`)
-    );
-  };
-
-  const handleSearch = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const onSubmitSearch = (event) => {
-    event.preventDefault();
-    let confirm = false;
-    for (let i = 0; i <= coins.length; i++) {
-      if (serch === coins[i].name) {
-        confirm = true;
-        console.log(
-          `${coins[num].name}(${coins[num].symbol}) : $${coins[num].quotes.USD.price}`
-        );
-        setInverter(!inverter);
-        break;
-      }
-      num++;
-    }
-    // coins.map((coin) => {
-    //   if (serch === coin.name) {
-    //     confirm = true;
-    //     console.log(`${coin.name}(${coin.symbol}) : $${coin.quotes.USD.price}`);
-    //     setInverter(!inverter);
-    //   }
-    // });
-    if (confirm === false) console.log("The coin you entered does not exist.");
-    setSearch("");
-  };
-
-  const handleInverter = (event) => {
-    setCoinInverter(event.target.value);
-  };
-
-  const onSubmitInverter = (event) => {
-    event.preventDefault();
-    console.log(
-      `Coin name : ${coins[num].name}\nCoin ${Math.floor(
-        coinInverter / parseInt(coins[num].quotes.USD.price)
-      )} available for purchase`
-    );
-    num = 0;
-    // coins.map((coin) =>
-    //   console.log(
-    //     `${coin.name} : ${Math.round(coinInverter / coin.quotes.USD.price)}`
-    //   )
-    // );
-    setCoinInverter("");
-    setInverter(!inverter);
-  };
-
+function App() {
   return (
-    <div>
-      <h1>The Coins!({loading ? "" : `${coins.length}`})</h1>
-      <hr />
-      {loading ? (
-        <strong>Loading...</strong>
-      ) : (
-        <>
-          <button onClick={onClickList}>Coins List</button>
-          <hr />
-
-          <h3>
-            Coins Search & Number of coins that can be bought with dollars
-          </h3>
-
-          <form onSubmit={onSubmitSearch}>
-            <input
-              value={serch}
-              onChange={handleSearch}
-              placeholder="Please your coin name..."
-              type="text"
-              disabled={!inverter}
-            />
-            <button disabled={!inverter}>Search!!!</button>
-          </form>
-
-          <form onSubmit={onSubmitInverter}>
-            <input
-              value={coinInverter}
-              onChange={handleInverter}
-              placeholder="Please enter dollars..."
-              type="number"
-              disabled={inverter}
-            />
-            <button disabled={inverter}>Inverter!!!</button>
-          </form>
-          <hr />
-        </>
-      )}
-    </div>
+    <Router>
+      <Switch>
+        <Route path={"/hello"}>
+          <h1>Hello World~</h1>
+        </Route>
+        <Route path={"/movie"}>
+          <Detail />
+        </Route>
+        <Route path={"/"}>
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
-};
+}
 
 export default App;
+
+// BrowserRouter는 우리가 흔히 아는 URL의 생김새이다. EX) localhost:3000/movie 즉, "/"를 사용한다.
+// Switch는 Route를 찾는건데 Route는 URL을 뜻한다. Route를 찾으면 컴포넌트를 렌더링해한다.
+// path={"/"}은 Home을 나타낸다. 즉, path URL 주소이다.
