@@ -19,11 +19,12 @@ const Home = () => {
   return (
     <div>
       {loading ? (
-        <h1>Loading...</h1>
+        <h1>Loading...😴😴😴</h1>
       ) : (
         <div>
           {movies.map((movie) => (
             <Movie
+              id={movie.id}
               key={movie.id}
               coverImg={movie.medium_cover_image}
               title={movie.title}
