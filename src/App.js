@@ -6,10 +6,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path={"/movie/:id"}>
+        <Route path={process.env.PUBLIC_URL + "/movie/:id"}>
           <Detail />
         </Route>
-        <Route path={"/"}>
+        <Route basename={process.env.PUBLIC_URL + "/"}>
           <Home />
         </Route>
       </Switch>
