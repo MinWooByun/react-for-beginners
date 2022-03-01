@@ -18,26 +18,21 @@ const Home = () => {
     getMovies();
   }, []);
   return (
-    <div>
+    <div className={style.container}>
       {loading ? (
         <div className={style.loading}>
-          <span>Loading...😴😴😴</span>
+          <span className={style.loading_title}>Loading...😴😴😴</span>
         </div>
       ) : (
-        <div className={style.container}>
-          <ul className={style.movie_list}>
-            {movies.map((movie, index) => (
-              <li key={index}>
-                <Movie
-                  key={movie.id}
-                  id={movie.id}
-                  coverImg={movie.medium_cover_image}
-                  title={movie.title}
-                />
-              </li>
-            ))}
-          </ul>
-          <button className={style.button}>{">"}</button>
+        <div className={style.movie_list}>
+          {movies.map((movie) => (
+            <Movie
+              key={movie.id}
+              id={movie.id}
+              coverImg={movie.medium_cover_image}
+              title={movie.title}
+            />
+          ))}
         </div>
       )}
     </div>

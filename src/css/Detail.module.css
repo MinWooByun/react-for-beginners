@@ -1,0 +1,17 @@
+.container {
+  padding: 50px;
+  color: white;
+}
+
+.image {
+  border-radius: 20px;
+}
+
+.clock {
+  margin: 0px 5px 0px 10px;
+}
+
+.star {
+  color: yellow;
+  margin: 0px 5px 0px 10px;
+}
